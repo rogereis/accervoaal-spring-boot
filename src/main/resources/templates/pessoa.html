@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Artigos</title>
+
+<link rel="stylesheet" th:href="@{/css/material.min.css}" />
+
+<script type="text/javascript" th:src="@{/js/material.min.js}"></script>
+
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
+	type="text/css">
+
+</head>
+
+
+
+<body>
+
+	<img th:src="@{/images/correspondencia.jpeg}">
+	<br>
+	<img th:src="@{/images/barra.jpeg}">
+	<div style="padding: 20px">
+		<form th:action="@{/pessoa/search}" method="get">
+			<div class="mdl-textfield mdl-js-textfield">
+				<input class="mdl-textfield__input" type="text" name="nome" /> <label
+					class="mdl-textfield__label" for="sample1">Digite aqui para
+					procurar</label>
+			</div>
+			<button
+				class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+				type="submit">Procurar</button>
+		</form>
+	</div>
+	<div style="padding: 20px" th:if="${todasPessoas != null}">
+		<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th class="mdl-data-table__cell--non-numeric">Nome</th>
+					<th class="mdl-data-table__cell--non-numeric">Arquivo</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="pessoa : ${todasPessoas}">
+					<td th:text="${pessoa.id}"></td>
+					<td class="mdl-data-table__cell--non-numeric"
+						th:text="${pessoa.nome}"></td>
+					<td>
+						<ul class="demo-list-icon mdl-list">
+							<li th:each="arquivo : ${pessoa.arquivos}" class="mdl-list__item">
+								<span
+									class="mdl-list__item-primary-content"> <i
+										class="material-icons mdl-list__item-icon">picture_as_pdf</i> <a
+									th:href="@{http://acervoaal.ddns.net/files/__${arquivo.enderecoPDF}__}">Visualizar</a>
+								</span>
+							</li>
+						</ul>						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
